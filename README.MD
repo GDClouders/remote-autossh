@@ -32,7 +32,7 @@ cd <repository-name>
 2. Copy the example environment file and configure it:
 ```bash
 cp env.example .env
-nano .env
+vi .env
 ```
 
 3. Edit `.env` with your configuration:
@@ -178,9 +178,6 @@ Make sure the remote server allows the forwarded ports through its firewall and 
 - Review and limit the ports you expose
 - Consider using firewall rules on the remote server
 
-## License
-
-[Add your license here]
 
 ## Contributing
 
