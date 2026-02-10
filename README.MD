@@ -182,3 +182,14 @@ Make sure the remote server allows the forwarded ports through its firewall and 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+
+## Recommended Commit Types
+
+| Type    | Content                                   | Example Commit                                  |
+|---------|-----------------------------------------------|------------------------------------------------|
+| `feat`  | Adding a new feature            | `feat: add configuration script`          |
+| `fix`   | Fixing an existing issue          | `fix: correct sshd config`  |
+| `docs`  | Updating documentation                         | `docs: add usage instructions for plugin X`  |
+| `chore` | Repo cleanup, folder reorganization, config   | `chore: reorganize functions folder`           |
+
