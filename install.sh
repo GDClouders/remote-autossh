@@ -68,9 +68,21 @@ check_and_add_ssh_include() {
 check_and_add_ssh_include
 
 
+# check if the config.d directory exists, if not create it
+if [[ ! -d "/home/$SERVICE_USER/.ssh/config.d" ]]; then
+    echo "[+] Creating config.d directory for user $SERVICE_USER"
+    mkdir -p "/home/$SERVICE_USER/.ssh/config.d"
+    chmod 700 "/home/$SERVICE_USER/.ssh/config.d"
+    chown "$SERVICE_USER:$SERVICE_USER" "/home/$SERVICE_USER/.ssh/config.d"
+    echo "[✓] config.d directory created"
+fi
 
 cp "$OUTDIR/$OUTFILESSHCONFIG" /home/$SERVICE_USER/.ssh/config.d/${REMOTE_HOST_ALIAS}-autossh_config.conf
 echo "[+] SSH config copied to /home/$SERVICE_USER/.ssh/config.d/${REMOTE_HOST_ALIAS}-autossh_config.conf"
+
+sudo chown $SERVICE_USER:$SERVICE_USER /home/$SERVICE_USER/.ssh/config.d/${REMOTE_HOST_ALIAS}-autossh_config.conf
+sudo chmod 600 /home/$SERVICE_USER/.ssh/config.d/${REMOTE_HOST_ALIAS}-autossh_config.conf
+
 
 cat $OUTDIR/$OUTFILESYSTEMDSERVICE
 
@@ -84,5 +96,4 @@ sudo systemctl daemon-reload
 sudo systemctl enable autossh.service
 sudo systemctl start autossh.service    
 echo "[+] AutoSSH service started"
-
-echo "[+] Installation complete. Use 'sudo systemctl status autossh.service' to check the service status."
+echo '[+] Installation complete. Use "sudo systemctl status autossh.service" to check the service status.'
