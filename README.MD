@@ -21,6 +21,13 @@ This tool automates the setup of AutoSSH with systemd to maintain reliable SSH r
 - SSH access to the remote server
 - SSH key pair configured
 
+## Optional Prerequisites
+- You would like to create a system user instead a personal one which is dedicated to the ssh tunnel: 
+``` bash
+sudo adduser --system --shell /usr/sbin/nologin autosshuser
+```
+
+
 ## Installation
 
 1. Clone this repository:
