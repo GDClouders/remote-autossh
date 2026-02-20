@@ -20,11 +20,28 @@ This tool automates the setup of AutoSSH with systemd to maintain reliable SSH r
 - AutoSSH installed (`sudo apt install autossh` or equivalent)
 - SSH access to the remote server
 - SSH key pair configured
+- SSH public host key*
+
+*
+``` bash
+# if you never connect to the destination server, you would like to get the public SSH keys, insted you need to perform at least one remote connection and copy pub SSH key to the correct user known_hosts file, or autossh will fail, eg.
+ssh-keyscan -t rsa REMOTE_HOSTNAME >> /home/SERVICE_USER/.ssh/known_hosts
+```
 
 ## Optional Prerequisites
-- You would like to create a system user instead a personal one which is dedicated to the ssh tunnel: 
+- You would like to create a system user instead a personal one which is dedicated to the systemd service ssh: 
 ``` bash
 sudo adduser --system --shell /usr/sbin/nologin autosshuser
+mkdir -p /home/autosshuser/.ssh
+touch /home/autosshuser/known_hosts
+ssh-keygen -t rsa -b 4096 -N "" -q -f /home/autosshuser/.ssh/id_rsa.autossh
+ssh-keyscan -t rsa REMOTE_HOSTNAME >> /home/autosshuser/.ssh/known_hosts
+chown -R autosshuser:autosshuser /home/autosshuser/
+chmod 600 -R /home/autosshuser/
+chmod 700 /home/autosshuser/
+chmod 700 /home/autosshuser/.ssh
+chmod 700 /home/autosshuser/.ssh/config.d
+
 ```
 
 
